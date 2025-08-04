@@ -29,7 +29,7 @@ class Base(DeclarativeBase):
 # Instantiate SQLAlchemy with Base
 db = SQLAlchemy(model_class=Base)
 
-# CLI command for loading data
+# CLI command for loading data manually (optional)
 @click.command("load-data")
 @with_appcontext
 def load_data_command():
@@ -75,6 +75,11 @@ def create_app(test_config=None):
     with app.app_context():
         from leet_app import models
         db.create_all()
+
+        # Conditionally load data only once
+        if app.config.get("INITIAL_DATA_LOADED") != "true":
+            from leet_app.add_data import add_all_data
+            add_all_data()
 
         from leet_app.routes import bp
         app.register_blueprint(bp)
