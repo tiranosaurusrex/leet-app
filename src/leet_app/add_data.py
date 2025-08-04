@@ -3,21 +3,12 @@ Data ingestion script for LEET (London Energy Efficiency Tool).
 
 Reads a prepared CSV and populates the database tables: Borough, BuildingType,
 Building, and EnergyUsage using SQLAlchemy ORM.
-
-Dependencies:
-    - pandas
-    - SQLAlchemy
-    - Flask-SQLAlchemy
-    - importlib.resources (for locating the CSV within the package)
 """
+
 from importlib import resources
 import pandas as pd
 from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
-
-
-from leet_app import db
-from leet_app.models import Borough, BuildingType, Building, EnergyUsage
 
 
 def clean_dataframe(df):
@@ -29,6 +20,8 @@ def clean_dataframe(df):
 
 def add_boroughs(df):
     """Add unique boroughs to the database."""
+    from leet_app import db
+    from leet_app.models import Borough
     try:
         for borough in df['BOROUGH'].unique():
             if not db.session.get(Borough, borough):
@@ -42,6 +35,8 @@ def add_boroughs(df):
 
 def add_building_types(df):
     """Add unique building types to the database."""
+    from leet_app import db
+    from leet_app.models import BuildingType
     try:
         for btype in df['BUILDING_TYPE'].unique():
             exists = db.session.query(BuildingType).filter_by(building_type_name=btype).first()
@@ -56,11 +51,13 @@ def add_building_types(df):
 
 def add_buildings_and_energy(df):
     """Add buildings and their corresponding energy usage."""
+    from leet_app import db
+    from leet_app.models import Building, BuildingType, EnergyUsage
     try:
         # Create lookup map for FK
         type_map = {
             bt.building_type_name: bt.building_type_id
-            for bt in BuildingType.query.all()
+            for bt in db.session.query(BuildingType).all()
         }
 
         for index, row in df.iterrows():
@@ -98,6 +95,8 @@ def add_buildings_and_energy(df):
 
 def add_all_data():
     """Main function to load CSV and insert all data into the database."""
+    from leet_app import db
+    from leet_app.models import Borough, BuildingType, Building
     try:
         # Locate CSV within src/data/
         csv_path = resources.files("data").joinpath("prepared_heat_demand_data.csv")
