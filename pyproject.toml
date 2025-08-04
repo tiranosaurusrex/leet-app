@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 # name and version are mandatory, change the values but do not delete them.
 [project]
-name = "comp0034-cw2"
+name = "building-heat"
 version = "2025.1"
 dependencies = [
     "flask",

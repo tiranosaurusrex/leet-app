@@ -3,13 +3,14 @@ blinker==1.9.0
 certifi==2025.8.3
 charset-normalizer==3.4.2
 click==8.1.8
--e git+https://github.com/tiranosaurusrex/building-heat.git@b6ec24f27532b8e72aba7c4dce3a86f4cbb77c26#egg=comp0034_cw2
+-e git+https://github.com/tiranosaurusrex/building-heat.git@e6fc460e99529e530506d222587c5be38d09707d#egg=comp0034_cw2
 coverage==7.10.2
 exceptiongroup==1.3.0
 Flask==3.1.1
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.2
 flaskstarter==0.7
+gunicorn==23.0.0
 h11==0.16.0
 idna==3.10
 importlib_metadata==8.7.0
