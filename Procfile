@@ -1,0 +1,1 @@
+web: gunicorn "src.leet_app:create_app()"
