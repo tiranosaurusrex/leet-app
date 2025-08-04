@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <!-- HERO HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-5 text-center shadow mb-5">
+    <h1 class="display-4 fw-bold">Explore LEET Reports</h1>
+    <p class="lead mb-0">Generate borough-level insights and downloadable reports to guide energy strategy and action.</p>
+  </div>
+
+  <!-- REPORT CARDS -->
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+
+    <!-- Borough Summary Report Card -->
+    <div class="col">
+      <div class="card h-100 shadow-sm transition-card bg-success text-white">
+        <div class="card-img-wrapper">
+          <img src="{{ url_for('static', filename='img/reports/borough_report.jpg') }}" class="card-img-top" alt="Borough Report">
+          <div class="card-img-overlay d-flex align-items-end" style="background: linear-gradient(to top, rgba(255,255,255,0.95), transparent 60%);">
+            <h5 class="card-title text-success mb-0 py-2 w-100 fw-bold">Borough Summary Report</h5>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text text-white-50">Get a tailored summary of energy usage by borough, building type, and usage threshold.</p>
+          <a href="{{ url_for('starter.borough_summary_report') }}" class="btn btn-light">
+            <i class="bi bi-file-earmark-text me-2"></i>Generate
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Building Type Focus Report Card -->
+    <div class="col">
+      <div class="card h-100 shadow-sm transition-card bg-success text-white">
+        <div class="card-img-wrapper">
+          <img src="{{ url_for('static', filename='img/reports/building_focus.jpg') }}" class="card-img-top" alt="Building Type Report">
+          <div class="card-img-overlay d-flex align-items-end" style="background: linear-gradient(to top, rgba(255,255,255,0.95), transparent 60%);">
+            <h5 class="card-title text-success mb-0 py-2 w-100 fw-bold">Building Type Focus Report</h5>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text text-white-50">Compare energy performance for one building type across multiple boroughs and metrics.</p>
+          <a href="{{ url_for('starter.building_type_focus_form') }}" class="btn btn-light">
+            <i class="bi bi-bar-chart-line me-2"></i>Compare
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

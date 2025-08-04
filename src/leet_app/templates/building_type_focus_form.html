@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Building Type Focus Report{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <!-- HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-4 text-center shadow mb-4">
+    <h1 class="display-5 fw-bold">Generate Building Type Focus Report</h1>
+    <p class="lead">Compare borough-level energy use for a selected building type.</p>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="card shadow">
+    <div class="card-body">
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+
+        <!-- Building Type -->
+        <div class="mb-3">
+          <label class="form-label">Building Type</label>
+          {{ form.building_type(class="form-select") }}
+          {% if form.building_type.errors %}
+            <div class="text-danger small">{{ form.building_type.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <!-- Metrics -->
+        <div class="mb-4">
+          <label class="form-label">Select Energy Metrics</label>
+          {% for subfield in form.metrics %}
+            <div class="form-check">
+              {{ subfield(class="form-check-input") }}
+              <label class="form-check-label" for="{{ subfield.id }}">
+                {{ subfield.label.text }}
+              </label>
+            </div>
+          {% endfor %}
+          {% if form.metrics.errors %}
+            <div class="text-danger small">{{ form.metrics.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <!-- Boroughs -->
+        <div class="mb-4">
+          <label class="form-label">Compare Boroughs</label>
+          {% for subfield in form.boroughs %}
+            <div class="form-check">
+              {{ subfield(class="form-check-input") }}
+              <label class="form-check-label" for="{{ subfield.id }}">
+                {{ subfield.label.text }}
+              </label>
+            </div>
+          {% endfor %}
+          {% if form.boroughs.errors %}
+            <div class="text-danger small">{{ form.boroughs.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <!-- Output Format -->
+        <div class="mb-4">
+          <label class="form-label">Output Format</label>
+          {% for subfield in form.output_format %}
+            <div class="form-check">
+              {{ subfield(class="form-check-input") }}
+              <label class="form-check-label" for="{{ subfield.id }}">
+                {{ subfield.label.text }}
+              </label>
+            </div>
+          {% endfor %}
+          {% if form.output_format.errors %}
+            <div class="text-danger small">{{ form.output_format.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <!-- Submit -->
+        <div class="text-end">
+          {{ form.submit(class="btn btn-leet btn-lg") }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

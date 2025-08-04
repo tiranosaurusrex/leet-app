@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  <!-- HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-4 text-center shadow mb-5">
+    <h1 class="display-4 fw-bold">About LEET</h1>
+    <p class="lead fs-4">Your London Energy Efficiency Tool for smart, sustainable decisions.</p>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="container my-5 text-center">
+    <blockquote class="blockquote text-leet">
+      <p class="mb-0">"What gets measured, gets managed."</p>
+      <footer class="blockquote-footer mt-2">Peter Drucker</footer>
+    </blockquote>
+  </div>
+
+  <!-- APP OVERVIEW -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body" style="font-size: 1rem;">
+      <h5 class="fw-bold text-leet">What is LEET?</h5>
+      <p>LEET (London Energy Efficiency Tool) is an innovative web platform designed to empower users with actionable insights into London's energy consumption patterns. By providing borough-level energy demand data, LEET enables users to assess building energy efficiency, compare consumption across sectors, and support sustainability efforts across the city.</p>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body" style="font-size: 1rem;">
+      <h5 class="fw-bold text-leet">How it Works</h5>
+      <p>LEET consolidates and visualizes energy data from reliable public sources and integrates <strong>The Guardian Open Platform API</strong> to keep users informed on sustainability topics. Through interactive visualizations like bar charts, pie charts, and geo-maps, users can explore energy demand patterns, enabling more informed decisions regarding energy usage and building retrofitting strategies.</p>
+    </div>
+  </div>
+
+  <!-- TECHNOLOGIES USED -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body" style="font-size: 1rem;">
+      <h5 class="fw-bold text-leet">Technologies Used</h5>
+        <li><i class="bi bi-code-slash text-leet me-2"></i><strong>Flask</strong> - A micro web framework for Python.</li>
+        <li><i class="bi bi-bar-chart-fill text-leet me-2"></i><strong>Plotly</strong> - For creating interactive charts and visualizations.</li>
+        <li><i class="bi bi-cloud-arrow-down text-leet me-2"></i><strong>SQLAlchemy</strong> - A powerful database toolkit for Python.</li>
+        <li><i class="bi bi-box-arrow-in-right text-leet me-2"></i><strong>API Integration</strong> - Powered by <strong>The Guardian Open Platform API</strong> for sustainability-related content.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CONTACT INFORMATION -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body" style="font-size: 1rem;">
+      <h5 class="fw-bold text-leet">Contact Us</h5>
+      <p>If you have any inquiries or suggestions, feel free to reach out to us:</p>
+      <ul class="fs-5">
+        <li><i class="bi bi-envelope-fill text-leet me-2"></i>Email: <a href="mailto:contact@leetapp.com" class="text-decoration-none text-leet">contact@leetapp.com</a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

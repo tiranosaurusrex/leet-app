@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Energy Geomap{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  <!-- PAGE HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-5 text-center shadow mb-5">
+    <h1 class="display-5 fw-bold">Energy Geomap</h1>
+    <p class="lead mb-0">Visualise energy demand geographically by selecting a building type and metric.</p>
+  </div>
+
+  <!-- FILTER FORM -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h5 class="fw-bold">Select Building Type and Metric</h5>
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label for="metric" class="form-label">{{ form.metric.label }}</label>
+            {{ form.metric(class="form-select") }}
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="building_type" class="form-label">{{ form.building_type.label }}</label>
+            {{ form.building_type(class="form-select") }}
+          </div>
+          <div class="col-md-4 mb-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-leet btn-lg w-100">Generate Geomap</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- GEOMAP SECTION -->
+  {% if chart %}
+  <div class="mb-5">
+    <h4 class="fw-bold text-leet">Energy Demand Geomap</h4>
+    <p class="text-muted mb-4">This interactive map visualises energy demand geographically based on the selected building type and metric. Explore energy demand distribution across different areas for targeted energy management.</p>
+    <div class="border rounded p-4 bg-white shadow-sm">
+      {{ chart|safe }}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

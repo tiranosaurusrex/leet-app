@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Report Result{% endblock %}
+
+{% block content %}
+<div class="container my-5 text-center">
+  <div class="alert alert-warning shadow-sm">
+    <h4 class="fw-bold text-leet mb-3">No Results Found</h4>
+    <p>{{ message }}</p>
+    <a href="{{ url_for('starter.reports') }}" class="btn btn-leet mt-3">
+      <i class="bi bi-arrow-left-circle me-2"></i>Back to Reports
+    </a>
+  </div>
+</div>
+{% endblock %}

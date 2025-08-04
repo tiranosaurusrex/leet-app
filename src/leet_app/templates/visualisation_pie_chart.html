@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Pie Chart by Borough{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  <!-- PAGE HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-5 text-center shadow mb-5">
+    <h1 class="display-5 fw-bold">Pie Chart: Energy Use by Building Type</h1>
+    <p class="lead mb-0">Analyse how energy usage varies across different building types in the selected borough.</p>
+  </div>
+
+  <!-- FILTER FORM -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h5 class="fw-bold">Select Borough</h5>
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group mb-4">
+          <label for="borough">{{ form.borough.label }}</label>
+          <div class="d-flex justify-content-center mt-2">
+            {{ form.borough(class="form-control w-50") }}
+          </div>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-leet btn-lg w-100">Generate Chart</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- PIE CHART SECTION -->
+  {% if fig_html %}
+  <div class="mb-5">
+    <h4 class="fw-bold text-leet">Energy Use Distribution by Building Type</h4>
+    <p class="text-muted mb-4">This chart shows how energy is distributed across different building types in the selected borough. Use this to identify key energy consumption patterns and optimize building types for retrofitting or efficiency improvements.</p>
+    <div class="border rounded p-4 bg-white shadow-sm">
+      {{ fig_html|safe }}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

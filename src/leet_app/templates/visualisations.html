@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Visualisations{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <!-- HERO HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-5 text-center shadow mb-5">
+    <h1 class="display-4 fw-bold">Explore LEET Visualisations</h1>
+    <p class="lead mb-0">Interactive charts to understand borough-level energy demand, patterns, and building efficiency.</p>
+  </div>
+
+  <!-- VISUALISATION CARDS -->
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% set cards = [
+      {
+        "title": "Building Count Bar Chart",
+        "desc": "See the number of buildings by type and borough.",
+        "img": "bar_chart.png",
+        "route": "starter.visualisation_building_count"
+      },
+      {
+        "title": "Average Energy Charts",
+        "desc": "Compare average kWh and peak demand by building type.",
+        "img": "avg_energy.png",
+        "route": "starter.visualisation_average_energy"
+      },
+      {
+        "title": "Energy Geomap",
+        "desc": "Visualise energy demand on a geographic map by building type.",
+        "img": "geomap.png",
+        "route": "starter.visualisation_geomap"
+      },
+      {
+        "title": "Pie Chart by Borough",
+        "desc": "Break down borough energy use by building types.",
+        "img": "pie_chart.png",
+        "route": "starter.visualisation_pie_chart"
+      },
+      {
+        "title": "Energy Demand Heatmap",
+        "desc": "Explore where energy demand is concentrated across the city.",
+        "img": "heatmap.png",
+        "route": "starter.visualisation_heatmap"
+      },
+      {
+        "title": "High Demand Buildings",
+        "desc": "Identify buildings with the highest energy consumption.",
+        "img": "high_demand.png",
+        "route": "starter.visualisation_high_demand"
+      }
+    ] %}
+
+    {% for card in cards %}
+    <div class="col">
+      <div class="card h-100 shadow-sm transition-card bg-success text-white">
+        <div class="card-img-wrapper">
+          <img src="{{ url_for('static', filename='img/visualisations/' ~ card.img) }}" class="card-img-top" alt="{{ card.title }}">
+          <div class="card-img-overlay d-flex align-items-end" style="background: linear-gradient(to top, rgba(255,255,255,0.95), transparent 60%);">
+            <h5 class="card-title text-success mb-0 py-2 w-100 fw-bold">{{ card.title }}</h5>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text text-white-50">{{ card.desc }}</p>
+          <a href="{{ url_for(card.route) }}" class="btn btn-light">
+            <i class="bi bi-bar-chart-fill me-2"></i>View Chart
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

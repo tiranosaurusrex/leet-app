@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Building Type Focus Report{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <!-- HEADER -->
+  <div class="text-center mb-5">
+    <img src="{{ url_for('static', filename='img/logos/logo.png') }}" alt="LEET Logo" style="height: 100px;">
+    <h1 class="display-5 text-success fw-bold mt-3">Building Type Focus Report</h1>
+    <p class="lead">Compare energy demand across boroughs for a selected building type.</p>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="fw-bold">Executive Summary</h5>
+      <p>This report compares the energy consumption for selected building types across various boroughs. The analysis focuses on Annual Energy Use (kWh) and/or Peak Demand (kW), providing insights into potential opportunities for energy optimization and management.</p>
+    </div>
+  </div>
+
+  <!-- FILTER INFO -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="fw-bold">Report Filters</h5>
+      <ul class="list-unstyled mb-0">
+        <li><strong>Building Type:</strong> {{ building_type }}</li>
+        <li><strong>Boroughs Compared:</strong> {{ boroughs|join(', ') }}</li>
+        <li><strong>Metrics:</strong> 
+          {% if 'kwh' in metrics %}
+            Average Annual Energy Use (kWh)
+          {% endif %}
+          {% if 'peak_kw' in metrics %}
+            , Average Peak Demand (kW)
+          {% endif %}
+        </li>
+        <li><strong>Date Generated:</strong> {{ now.strftime('%d %B %Y') }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CHARTS SECTION -->
+  {% if chart_data.kwh %}
+  <div class="mb-5">
+    <h4 class="fw-bold text-leet">Average Annual Energy Use (kWh)</h4>
+    <p class="text-muted">This chart compares the average annual energy consumption in kWh across the selected boroughs for the chosen building type.</p>
+    <div class="border rounded p-3 bg-white shadow-sm">
+      {{ chart_data.kwh | safe }}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if chart_data.peak_kw %}
+  <div class="mb-5">
+    <h4 class="fw-bold text-leet">Average Peak Demand (kW)</h4>
+    <p class="text-muted">This chart compares the average peak demand in kW across the selected boroughs for the chosen building type.</p>
+    <div class="border rounded p-3 bg-white shadow-sm">
+      {{ chart_data.peak_kw | safe }}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- SUMMARY TABLE -->
+  <div class="mb-5">
+    <h4 class="fw-bold text-leet">Summary Table</h4>
+    <p>This table shows the average values per borough for each selected energy metric.</p>
+    <div class="table-responsive border rounded bg-white shadow-sm p-3">
+      {{ table_html | safe }}
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="text-muted small mt-5">
+    <hr>
+    <p class="mb-1">This report was generated using public datasets under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank">Open Government Licence v3.0</a>.</p>
+    <p class="mb-1">Source: <a href="https://data.london.gov.uk/dataset/london-heat-map" class="text-muted">London Heat Map (Greater London Authority)</a>.</p>
+    <p class="mb-0">LEET - The London Energy Efficiency Tool. Empowering greener decisions through data.</p>
+  </div>
+</div>
+{% endblock %}

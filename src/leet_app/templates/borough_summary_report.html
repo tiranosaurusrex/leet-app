@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% block title %}{{ borough }} Report{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  <!-- LEET HEADER -->
+  <div class="text-center mb-5">
+    <img src="{{ url_for('static', filename='img/logos/logo.png') }}" alt="LEET Logo" style="height: 100px;">
+    <h1 class="display-5 text-success fw-bold mt-3">Borough Energy Summary Report</h1>
+    <p class="lead">Tailored energy analysis for informed planning and sustainability action.</p>
+  </div>
+
+  <!-- REPORT METADATA -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h5 class="fw-bold">Report Details</h5>
+      <ul class="list-unstyled mb-0">
+        <li><strong>Borough:</strong> {{ borough }}</li>
+        <li><strong>Building Type:</strong> {{ building_type }}</li>
+        <li><strong>Minimum kWh Threshold:</strong> {{ threshold }}</li>
+        <li><strong>Date Generated:</strong> {{ now.strftime('%d %B %Y') }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="mb-5">
+    <h4 class="fw-bold text-leet">Executive Summary</h4>
+    <p>
+      This report provides energy performance insights for <strong>{{ borough }}</strong>, filtered by your selected building type and energy threshold.
+      It offers decision-ready data to support sustainable planning, identify retrofit priorities, and track progress toward energy efficiency goals.
+    </p>
+  </div>
+
+  <!-- SUMMARY STATISTICS -->
+  <div class="row mb-4">
+    <div class="col-md-3 col-6 text-center">
+      <div class="bg-white shadow-sm p-4 border rounded">
+        <h3 class="fw-bold text-leet">{{ total_buildings }}</h3>
+        <p class="mb-0 small text-muted">Total Buildings</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6 text-center">
+      <div class="bg-white shadow-sm p-4 border rounded">
+        <h3 class="fw-bold text-leet">{{ total_kwh | round(0) | int | string | replace(',', ' ') }} kWh</h3>
+        <p class="mb-0 small text-muted">Total Energy Consumption</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6 text-center mt-4 mt-md-0">
+      <div class="bg-white shadow-sm p-4 border rounded">
+        <h3 class="fw-bold text-leet">{{ avg_kwh | round(2) }} kWh</h3>
+        <p class="mb-0 small text-muted">Average Usage per Building</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6 text-center mt-4 mt-md-0">
+      <div class="bg-white shadow-sm p-4 border rounded">
+        <h3 class="fw-bold text-leet">{{ avg_peak_kw | round(2) }} kW</h3>
+        <p class="mb-0 small text-muted">Average Peak Demand</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY INSIGHTS -->
+  <div class="mb-5">
+  <h4 class="fw-bold text-leet">Key Insights</h4>
+  <p>
+    The filtered dataset shows energy consumption exceeding <strong>{{ total_kwh | round(0) | int | string | replace(',', ' ') }} kWh</strong>. 
+    Peak demand levels indicate <strong>{{ "high" if avg_peak_kw > 100 else "moderate" }}</strong> energy intensity across selected buildings. 
+    Variations in usage suggest opportunities for strategic retrofitting and more targeted energy interventions.
+  </p>
+  </div>
+
+<!-- METHODOLOGY -->
+  <div class="mb-5">
+  <h4 class="fw-bold text-leet">Methodology</h4>
+  <p>
+    This report is based on the London Heat Map dataset, filtered by borough, building type, and minimum energy usage (kWh) as selected by the user. 
+    The data is processed using SQLAlchemy and pandas, and visualized with Plotly and Bootstrap. 
+    Statistics and visuals are based on the subset that meets your selected criteria.
+  </p>
+  </div>
+
+<!-- RECOMMENDATIONS -->
+  <div class="mb-5">
+  <h4 class="fw-bold text-leet">Recommendations</h4>
+  <div class="row row-cols-1 row-cols-md-3 g-3">
+
+    <!-- Card 1: Retrofit Opportunities -->
+    <div class="col">
+      <div class="border rounded bg-white shadow-sm p-3 h-100">
+        <h6 class="text-success fw-bold"><i class="bi bi-lightbulb me-2"></i>Retrofit Opportunities</h6>
+        <p class="mb-0">Investigate buildings with high annual energy use for retrofit planning and efficiency upgrades.</p>
+      </div>
+    </div>
+
+    <!-- Card 2: District Energy Clusters (conditional) -->
+    {% if include_map %}
+    <div class="col">
+      <div class="border rounded bg-white shadow-sm p-3 h-100">
+        <h6 class="text-success fw-bold"><i class="bi bi-geo-alt-fill me-2"></i>District Energy Clusters</h6>
+        <p class="mb-0">Use the geomap to identify energy-dense zones suitable for district heating and cooling systems.</p>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Card 3: Demand Management -->
+    <div class="col">
+      <div class="border rounded bg-white shadow-sm p-3 h-100">
+        <h6 class="text-success fw-bold"><i class="bi bi-graph-up-arrow me-2"></i>Demand Management</h6>
+        <p class="mb-0">Target outreach to <strong>{{ building_type or "priority" }}</strong> buildings with high peak demand for load balancing programs.</p>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- CHART SECTION -->
+  {% if fig_html %}
+  <div class="mb-5">
+    <h4 class="fw-bold text-leet">Energy Use Breakdown</h4>
+    <p>
+      The chart below shows how energy use is distributed across building types in <strong>{{ borough }}</strong>. Use it to identify which sectors are most energy-intensive.
+    </p>
+    <div class="border rounded p-3 bg-white shadow-sm">
+      {{ fig_html | safe }}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- MAP SECTION -->
+  {% if include_map and map_html %}
+  <div class="mb-5">
+    <h4 class="fw-bold text-leet">Energy Demand Geomap</h4>
+    <p>This interactive map shows the geolocation of filtered buildings in <strong>{{ borough }}</strong>. Hover to inspect energy demand per building.</p>
+    <div class="border rounded p-3 bg-white shadow-sm">
+      {{ map_html | safe }}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- DATA TABLE -->
+  <div class="table-responsive border rounded bg-white shadow-sm p-3 mb-5">
+    <table class="table table-striped text-center align-middle">
+      <thead class="table-light">
+        <tr>
+          {% for col in column_names %}
+            <th scope="col">{{ col }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in table_data %}
+          <tr>
+            {% for col in column_names %}
+              <td>{{ row[col] }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER / LICENSE -->
+  <div class="text-muted small mt-5">
+    <hr>
+    <p class="mb-1">This report was generated using public datasets under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank">Open Government Licence v3.0</a>.</p>
+    <p class="mb-1">Source: <a href="https://data.london.gov.uk/dataset/london-heat-map" class="text-muted">London Heat Map (Greater London Authority)</a>.</p>
+    <p class="mb-0">LEET - The London Energy Efficiency Tool. Empowering greener decisions through data.</p>
+  </div>
+
+</div>
+{% endblock %}

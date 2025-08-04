@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Building Count Chart{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  <!-- PAGE HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-5 text-center shadow mb-5">
+    <h1 class="display-5 fw-bold">Building Count by Borough and Type</h1>
+    <p class="lead mb-0">Visualise the number of buildings by type and borough with this bar chart.</p>
+  </div>
+
+  <!-- CHART SECTION -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h5 class="fw-bold text-center">Building Count Chart</h5>
+      <p class="text-muted text-center mb-4">This chart visualises the number of buildings by type and borough, helping to understand the distribution of building types across different boroughs.</p>
+      <div class="border rounded p-4 bg-white shadow-sm text-center">
+        {{ chart | safe }}
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block head %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- Poppins Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap CSS from static folder -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  
+  <style>
+    :root {
+      --leet-primary: #2E8B57; /* Sea Green for primary theme */
+      --leet-secondary: #4682B4; /* Steel Blue for contrast */
+      --leet-accent: #FFD700; /* Gold for highlights */
+      --leet-dark: #343a40;
+      --leet-light: #f8f9fa;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--leet-light);
+    }
+
+    .btn-leet {
+      background-color: var(--leet-primary);
+      border-color: var(--leet-primary);
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .btn-leet:hover {
+      background-color: #246347;
+      border-color: #246347;
+    }
+
+    .text-leet {
+      color: var(--leet-primary);
+    }
+
+    .bg-leet-gradient {
+      background: linear-gradient(135deg, var(--leet-primary) 0%, var(--leet-secondary) 100%);
+      color: white;
+    }
+
+    .transition-card {
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    .transition-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+
+    .card-img-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img-wrapper img {
+      transition: transform 0.5s ease;
+    }
+
+    .transition-card:hover .card-img-wrapper img {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .display-4 {
+        font-size: 2.5rem;
+      }
+      .lead {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+
+  <title>LEET - {% block title %}{% endblock %}</title>
+  {% endblock %}
+</head>
+
+<body>
+  <header>
+    {% include 'navbar.html' %}
+  </header>
+
+  <main id="content">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block footer %}
+  <footer class="bg-dark text-white text-center p-4 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-3">LEET</h5>
+          <p class="small">Your London Energy Efficiency Tool for smart, sustainable decisions.</p>
+        </div>
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-3">Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="{{ url_for('starter.index') }}" class="text-white text-decoration-none">Home</a></li>
+            <li><a href="{{ url_for('starter.visualisations') }}" class="text-white text-decoration-none">Visualisations</a></li>
+            <li><a href="{{ url_for('starter.reports') }}" class="text-white text-decoration-none">Reports</a></li>
+            <li><a href="{{ url_for('starter.esg') }}" class="text-white text-decoration-none">ESG News</a></li>
+            <li><a href="{{ url_for('starter.about') }}" class="text-white text-decoration-none">About</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5 class="text-uppercase mb-3">Data Sources</h5>
+          <p class="small">
+            Data from the
+            <a href="https://data.london.gov.uk/dataset/london-heat-map" class="text-light">London Heat Map</a> and
+            <a href="https://www.london.gov.uk/" class="text-light">London City Hall</a>.
+          </p>
+        </div>
+      </div>
+      <hr class="my-3 bg-light">
+      <div class="small">
+        © 2025 LEET App. Licensed under the
+        <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" class="text-light">Open Government Licence v3.0</a>.
+      </div>
+    </div>
+  </footer>
+  {% endblock %}
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var carousels = document.querySelectorAll('.carousel');
+      carousels.forEach(function(carousel) {
+        new bootstrap.Carousel(carousel, {
+          interval: 5000
+        });
+      });
+    });
+  </script>
+</body>
+</html>

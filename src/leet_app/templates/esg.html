@@ -1,0 +1,50 @@
+
+{% extends "base.html" %}
+
+{% block title %}Energy & ESG Insights - Central London{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <!-- HERO HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-5 text-center shadow mb-5">
+    <h1 class="display-4 fw-bold">Broader UK Context Energy & ESG Monitor</h1>
+    <p class="lead mb-0">Latest regulatory updates and efficiency trends for property developers</p>
+    <p class="text-white-50 mb-0">
+      <small>Last updated: {{ last_updated }} | Powered by The Guardian API</small>
+    </p>
+  </div>
+
+  {% if articles %}
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+      {% for article in articles %}
+      <div class="col">
+          <div class="card h-100 shadow-sm">
+              <div class="card-header bg-transparent">
+                  <span class="badge bg-secondary">{{ article.section }}</span>
+                  <small class="text-muted float-end">{{ article.published }}</small>
+              </div>
+              <div class="card-body">
+                  <h5 class="card-title">{{ article.title }}</h5>
+                  <p class="card-text text-muted">{{ article.summary }}</p>
+              </div>
+              <div class="card-footer bg-transparent">
+                  <a href="{{ article.url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                      Read Full Analysis <i class="bi bi-box-arrow-up-right"></i>
+                  </a>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+  {% else %}
+  <div class="alert alert-warning mt-4" role="alert">
+      ⚠️ No recent energy/ESG updates found. Please check back later.
+  </div>
+  {% endif %}
+  
+  <!-- Footer Attribution -->
+  <div class="text-center mt-4 text-muted small">
+    <p>Data provided by The Guardian Open Platform API</p>
+  </div>
+</div>
+{% endblock %}

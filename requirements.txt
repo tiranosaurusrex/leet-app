@@ -1,0 +1,12 @@
+flask
+flaskstarter
+flask-sqlalchemy
+flask-WTF
+pandas
+plotly
+pytest
+pytest-cov
+requests
+python-dotenv
+selenium 
+urllib3<2.0.0

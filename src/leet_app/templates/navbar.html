@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg sticky-top bg-white shadow-sm py-2">
+  <div class="container-fluid">
+
+    <!-- Logo only (no text) -->
+    <a class="navbar-brand d-flex align-items-center" href="{{ url_for('starter.index') }}">
+      <img src="{{ url_for('static', filename='img/logos/navbarlogo.png') }}" alt="LEET Logo" style="height: 60px;" class="align-middle">
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link text-success fw-semibold {% if request.path == url_for('starter.index') %}active text-decoration-underline{% endif %}" href="{{ url_for('starter.index') }}">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-success fw-semibold {% if request.path == url_for('starter.visualisations') %}active text-decoration-underline{% endif %}" href="{{ url_for('starter.visualisations') }}">
+            Visualisations
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-success fw-semibold {% if request.path == url_for('starter.reports') %}active text-decoration-underline{% endif %}" href="{{ url_for('starter.reports') }}">
+            Reports
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-success fw-semibold {% if request.path == url_for('starter.esg') %}active text-decoration-underline{% endif %}" href="{{ url_for('starter.esg') }}">
+            ESG News
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-success fw-semibold {% if request.path == url_for('starter.about') %}active text-decoration-underline{% endif %}" href="{{ url_for('starter.about') }}">
+            About
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Energy Demand Heatmap{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  <!-- PAGE HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-5 text-center shadow mb-5">
+    <h1 class="display-5 fw-bold">Energy Demand Heatmap</h1>
+    <p class="lead mb-0">Select a borough to explore the energy density distribution geographically.</p>
+  </div>
+
+  <!-- FORM SECTION -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h5 class="fw-bold">Select Borough</h5>
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group mb-4">
+          <label for="borough">{{ form.borough.label }}</label>
+          <div class="d-flex justify-content-center mt-2">
+            {{ form.borough(class="form-control w-50") }}
+          </div>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-leet btn-lg w-100">Generate Heatmap</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- HEATMAP SECTION -->
+  {% if fig %}
+  <div class="mb-5">
+    <h4 class="fw-bold text-leet">Energy Density Heatmap</h4>
+    <p class="text-muted mb-4">This heatmap shows the geographic distribution of energy demand across the selected borough. It can help identify areas with high energy consumption and potential targets for energy efficiency improvements.</p>
+    <div class="border rounded p-4 bg-white shadow-sm">
+      {{ fig.to_html(full_html=False, include_plotlyjs="cdn") | safe }}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Generate Borough Report{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  <!-- HERO HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-4 text-center shadow mb-4">
+    <h1 class="display-5 fw-bold">Generate Borough Summary Report</h1>
+    <p class="lead">Select filters below to create a tailored energy usage report by borough.</p>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="card shadow">
+    <div class="card-body">
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+
+        <!-- Borough & Building Type -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="borough" class="form-label">Select Borough</label>
+            {{ form.borough(class="form-select") }}
+          </div>
+          <div class="col-md-6">
+            <label for="building_type" class="form-label">Select Building Type</label>
+            {{ form.building_type(class="form-select", required=false) }}
+          </div>
+        </div>
+
+        <!-- Threshold -->
+        <div class="mb-3">
+          <label for="threshold" class="form-label">Minimum kWh Threshold</label>
+          {{ form.threshold(class="form-control", placeholder="Leave blank for no minimum") }}
+          <div class="form-text">Only include buildings consuming at least this much annual energy (kWh).</div>
+        </div>
+
+        <!-- Include Map -->
+        <div class="form-check mb-3">
+          {{ form.include_map(class="form-check-input") }}
+          <label class="form-check-label" for="include_map">Include Geomap in Report</label>
+        </div>
+
+        <!-- Output Format -->
+        <div class="mb-3">
+          <label class="form-label">Select Output Format</label>
+          {% for subfield in form.output_format %}
+            <div class="form-check">
+              {{ subfield(class="form-check-input") }}
+              <label class="form-check-label" for="{{ subfield.id }}">
+                {{ subfield.label.text }}
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Submit -->
+        <div class="text-end">
+          {{ form.submit(class="btn btn-leet btn-lg") }}
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

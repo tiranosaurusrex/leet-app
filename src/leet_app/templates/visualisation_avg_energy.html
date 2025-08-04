@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Average Energy Charts{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  <!-- PAGE HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-5 text-center shadow mb-5">
+    <h1 class="display-5 fw-bold">Average Energy Use by Building Type</h1>
+    <p class="lead mb-0">Select a metric and building type to view borough-level energy comparisons.</p>
+  </div>
+
+  <!-- FILTER FORM -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h5 class="fw-bold text-center">Select Energy Metric and Building Type</h5>
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-4">
+          {{ form.metric.label }}
+          <div class="d-flex justify-content-center mt-2">
+            {{ form.metric(class="form-select w-50") }}
+          </div>
+        </div>
+
+        <div class="mb-4">
+          {{ form.building_type.label }}
+          <div class="d-flex justify-content-center mt-2">
+            {{ form.building_type(class="form-select w-50") }}
+          </div>
+        </div>
+
+        <div class="mb-4 text-center">
+          {{ form.submit(class="btn btn-leet btn-lg") }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- CHART SECTION -->
+  {% if chart_html %}
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h5 class="fw-bold text-center text-leet">Average Energy Consumption Chart</h5>
+      <p class="text-muted text-center mb-4">This chart compares the average energy consumption in kWh or Peak Demand (kW) across boroughs for the selected building type. Use this to identify trends and areas for potential energy efficiency improvements.</p>
+      <div class="border rounded p-4 bg-white shadow-sm">
+        {{ chart_html.fig|safe }}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

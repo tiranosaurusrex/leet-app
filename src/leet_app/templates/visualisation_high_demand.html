@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}High Demand Buildings{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+  <!-- PAGE HEADER -->
+  <div class="bg-leet-gradient text-white rounded p-5 text-center shadow mb-5">
+    <h1 class="display-5 fw-bold">High Demand Buildings</h1>
+    <p class="lead mb-0">Select a threshold percentile to identify buildings with the highest energy demand (kWh).</p>
+  </div>
+
+  <!-- FORM SECTION -->
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      <h5 class="fw-bold">Select Percentile Threshold</h5>
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group mb-4">
+          <label for="percentile">{{ form.percentile.label }}</label>
+          <div class="d-flex justify-content-center mt-2">
+            {{ form.percentile(class="form-control w-50") }}
+          </div>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-leet btn-lg w-100">Generate Chart</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- THRESHOLD INFO -->
+  {% if threshold %}
+  <div class="mb-4">
+    <p class="text-muted">Threshold KWH value: <strong>{{ "{:,.0f}".format(threshold) }}</strong></p>
+  </div>
+  {% endif %}
+
+  <!-- CHART SECTION -->
+  {% if fig %}
+  <div class="mb-5">
+    <h4 class="fw-bold text-leet">High Demand Building Chart</h4>
+    <p class="text-muted mb-4">This chart visualises buildings with the highest energy consumption (kWh) based on the selected percentile threshold.</p>
+    <div class="border rounded p-4 bg-white shadow-sm">
+      {{ fig.to_html(full_html=False, include_plotlyjs="cdn") | safe }}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
