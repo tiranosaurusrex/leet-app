@@ -48,6 +48,7 @@ def create_app(test_config=None):
     Returns:
         Flask: The configured Flask application instance.
     """
+    print("✅ DEBUG: create_app() called", flush=True)
     app = Flask(__name__, instance_relative_config=True)
 
     # Configuration
@@ -78,9 +79,17 @@ def create_app(test_config=None):
         db.create_all()
 
         # Conditionally load data only once
-        if app.config.get("INITIAL_DATA_LOADED") != "true":
-            from src.leet_app.add_data import add_all_data
-            add_all_data()
+# Conditionally load data only once
+    if app.config.get("INITIAL_DATA_LOADED") != "true":
+        from src.leet_app.add_data import add_all_data
+        try:
+            print("🧪 DEBUG: Starting add_all_data()", flush=True)
+            with app.app_context():
+                add_all_data()
+        except Exception as e:
+            print(f"❌ ERROR in add_all_data: {e}", flush=True)
+
+
 
         from src.leet_app.routes import bp
         app.register_blueprint(bp)
