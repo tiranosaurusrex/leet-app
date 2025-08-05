@@ -27,8 +27,8 @@ import pandas as pd
 from dotenv import load_dotenv
 from flask import Blueprint, render_template, request, redirect, url_for, Response
 
-from leet_app.extensions import db
-from leet_app.forms import (
+from src.leet_app.extensions import db
+from src.leet_app.forms import (
     AverageEnergyForm,
     GeomapFilterForm,
     PieChartFilterForm,
@@ -37,8 +37,8 @@ from leet_app.forms import (
     BoroughReportForm,
     BuildingTypeReportForm,
 )
-from leet_app.models import Borough, BuildingType, EnergyUsage
-from leet_app.figures import (
+from src.leet_app.models import Borough, BuildingType, EnergyUsage
+from src.leet_app.figures import (
     building_count_chart,
     create_avg_energy_chart,
     create_geomap_figure,
@@ -46,7 +46,7 @@ from leet_app.figures import (
     create_energy_heatmap,
     create_high_demand_chart,
 )
-from leet_app.report_utils import (
+from src.leet_app.report_utils import (
     generate_borough_summary_data,
     generate_building_type_focus_data,
     create_report_geomap

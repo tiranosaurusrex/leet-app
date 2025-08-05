@@ -22,8 +22,8 @@ Dependencies:
 import pandas as pd
 import plotly.express as px
 
-from leet_app.extensions import db
-from leet_app.models import Borough, Building, BuildingType, EnergyUsage
+from src.leet_app.extensions import db
+from src.leet_app.models import Borough, Building, BuildingType, EnergyUsage
 
 
 def building_count_chart():
