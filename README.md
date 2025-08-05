@@ -19,6 +19,7 @@
    │   │   ├── figures.py          # Chart generation with Plotly
    │   │   ├── report_utils.py     # Data logic for report generation and exports
    │   │   ├── add_data.py         # Loads and preprocesses CSV data
+   |   |   ├── extensions.py  
    │   │   ├── run.py              # Optional run script
    │   │   ├── templates/          # Jinja HTML templates
    │   │   └── static/             # CSS, images, JS

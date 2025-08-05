@@ -14,7 +14,7 @@ Uses Flask-SQLAlchemy for database integration.
 import os
 from flask import Flask, render_template
 #from flask_sqlalchemy import SQLAlchemy
-from leet_app.extensions import db
+from src.leet_app.extensions import db
 from sqlalchemy.orm import DeclarativeBase
 from flask.cli import with_appcontext
 import click
@@ -34,7 +34,7 @@ class Base(DeclarativeBase):
 @click.command("load-data")
 @with_appcontext
 def load_data_command():
-    from leet_app.add_data import add_all_data
+    from src.leet_app.add_data import add_all_data
     add_all_data()
 
 # Factory function
@@ -74,15 +74,15 @@ def create_app(test_config=None):
 
     # Register models and blueprints within app context
     with app.app_context():
-        from leet_app import models
+        from src.leet_app import models
         db.create_all()
 
         # Conditionally load data only once
         if app.config.get("INITIAL_DATA_LOADED") != "true":
-            from leet_app.add_data import add_all_data
+            from src.leet_app.add_data import add_all_data
             add_all_data()
 
-        from leet_app.routes import bp
+        from src.leet_app.routes import bp
         app.register_blueprint(bp)
 
     # Register CLI command

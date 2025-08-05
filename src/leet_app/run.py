@@ -1,4 +1,4 @@
-from leet_app import create_app
+from src.leet_app import create_app
 
 app = create_app()
 
