@@ -27,7 +27,7 @@ import pandas as pd
 from dotenv import load_dotenv
 from flask import Blueprint, render_template, request, redirect, url_for, Response
 
-from leet_app import db
+from leet_app.extensions import db
 from leet_app.forms import (
     AverageEnergyForm,
     GeomapFilterForm,

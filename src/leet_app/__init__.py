@@ -12,7 +12,8 @@ Uses Flask-SQLAlchemy for database integration.
 """
 import os
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
+from leet_app.extensions import db
 from sqlalchemy.orm import DeclarativeBase
 
 # Define base class
@@ -25,7 +26,7 @@ class Base(DeclarativeBase):
     pass
 
 # Instantiate SQLAlchemy with Base
-db = SQLAlchemy(model_class=Base)
+#db = SQLAlchemy(model_class=Base)
 
 # Factory function
 def create_app(test_config=None):

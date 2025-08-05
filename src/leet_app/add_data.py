@@ -16,7 +16,7 @@ from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
 
 
-from leet_app import db
+from leet_app.extensions import db
 from leet_app.models import Borough, BuildingType, Building, EnergyUsage
 
 
