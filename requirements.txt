@@ -1,5 +1,6 @@
 attrs==25.3.0
 blinker==1.9.0
+-e git+https://github.com/tiranosaurusrex/building-heat.git@ba1fc6bfb131f602d06c4cceca16db722543cb3a#egg=building_heat
 certifi==2025.8.3
 charset-normalizer==3.4.2
 click==8.1.8
